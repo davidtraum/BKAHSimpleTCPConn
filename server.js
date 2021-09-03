@@ -1,5 +1,6 @@
 const net = require('net');
 
+const portInput = parseInt(process.argv[2])
 
 class ConnectedClient {
 	constructor(socket, server) {
@@ -27,6 +28,7 @@ class Server {
 			conn.send('Connected');
 		});
 		this.server.listen(port, ip);
+		console.log("Server ready on port", port);
 	}
 	disconnect(conn) {
 		this.connections.splice(this.connections.indexOf(conn), 1);
@@ -40,4 +42,4 @@ class Server {
 	}
 }
 
-new Server('', 12345);
+new Server('', portInput);
