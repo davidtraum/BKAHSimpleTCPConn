@@ -22,10 +22,9 @@ class Server {
 	constructor(ip, port) {
 		this.connections = [];
 		this.server = net.createServer(socket => {
-			console.log("Socket conn")
 			const conn = new ConnectedClient(socket, this);
 			this.connections.push(conn);
-			conn.send('Connected');
+			conn.send('Connected', socket.remoteAddress);
 		});
 		this.server.listen(port, ip);
 		console.log("Server ready on port", port);
@@ -36,7 +35,7 @@ class Server {
 	broadcast(sender, data) {
 		for(const client of this.connections) {
 			if(client !== sender) {
-				client.send(data.toString());
+				client.send(sender.remoteAddress + ':  ' + data.toString());
 			}
 		}
 	}
