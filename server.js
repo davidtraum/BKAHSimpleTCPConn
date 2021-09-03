@@ -35,7 +35,7 @@ class Server {
 	broadcast(sender, data) {
 		for(const client of this.connections) {
 			if(client !== sender) {
-				client.send(sender.remoteAddress + ':  ' + data.toString());
+				client.send(sender.socket.remoteAddress + ':  ' + data.toString());
 			}
 		}
 	}
